@@ -8,34 +8,31 @@ const ExpertDigestForm = () => {
   const [digestNumber, setDigestNumber] = useState('');
   const [newExperts, setNewExperts] = useState('');
   const [featuredExperts, setFeaturedExperts] = useState('');
+  const [bannedExperts, setBannedExperts] = useState('');
   const [removedExperts, setRemovedExperts] = useState('');
   const [finalMessage, setFinalMessage] = useState('');
 
   const generateMessage = () => {
     const defaultNewExpertsMessage = "Итак, на этой неделе в ряды наших экспертов никто не вступил, но ожидаем пополнение на следующей)";
+    const defaultFeaturedExpertsMessage = "Идем далее, на этой неделе у действующих экспертов не было новостей 🤓";
     const defaultRemovedExpertsMessage = "На этой неделе у нас не было отключений🥳";
 
-    // Создаем итоговое сообщение с правильным форматированием
-    const message = `
-Экспертный дайджест #${digestNumber} 🔥
+    // Формируем итоговое сообщение с одинаковыми отступами
+    let message = `Экспертный дайджест #${digestNumber} 🔥\n\n` +
+      "На календаре пятница, а это значит, что подъехал новый выпуск горячих новостей о наших партнерах. Присаживайтесь поудобнее🍿😎\n\n" +
+      `${newExperts.trim() ? `**Итак, на этой неделе в ряды наших экспертов вступили:**\n${newExperts}` : defaultNewExpertsMessage}\n\n` +
+      `${featuredExperts.trim() ? `**Идем далее, новости про действующих экспертов 🤓**\n${featuredExperts}` : defaultFeaturedExpertsMessage}\n\n`;
 
-На календаре пятница, а это значит, что подъехал новый выпуск горячих новостей о наших партнерах. 
-Присаживайтесь поудобнее🍿😎
+    // Добавляем блок с банами, если он есть
+    if (bannedExperts.trim()) {
+      message += `**К сожалению, на этой неделе у нас были баны:**\n${bannedExperts}\n\n`;
+    }
 
-${newExperts.trim() ? `Итак, на этой неделе в ряды наших экспертов вступили:\n${newExperts}` : defaultNewExpertsMessage}
+    // Добавляем блок с удалёнными экспертами
+    message += `${removedExperts.trim() ? `**И напоследок, те, с кем мы расстались:**\n${removedExperts}` : defaultRemovedExpertsMessage}\n\n` +
+      "**До встречи в следующую пятницу!🔥**";
 
-**Идем далее, новости про действующих экспертов 🤓**
-Героями выпуска стали: 
-
-${featuredExperts.trim() ? `${featuredExperts}` : ''}
-
-**И напоследок, те, с кем мы расстались:**
-${removedExperts.trim() ? `${removedExperts}` : defaultRemovedExpertsMessage}
-
-**До встречи в следующую пятницу!🔥**
-    `;
-
-    setFinalMessage(message);
+    setFinalMessage(message); // Без trim, чтобы сохранить все отступы
     copyToClipboard(message);  // Копируем итоговое сообщение в буфер обмена
   };
 
@@ -82,6 +79,15 @@ ${removedExperts.trim() ? `${removedExperts}` : defaultRemovedExpertsMessage}
             onChange={(e) => setFeaturedExperts(e.target.value)} 
             rows={5} 
             placeholder="Введите изменения для действующих экспертов"
+          />
+        </Form.Item>
+
+        <Form.Item label="К сожалению, у нас были баны:">
+          <TextArea 
+            value={bannedExperts} 
+            onChange={(e) => setBannedExperts(e.target.value)} 
+            rows={5} 
+            placeholder="Введите имена и информацию о заблокированных аккаунтах"
           />
         </Form.Item>
 
