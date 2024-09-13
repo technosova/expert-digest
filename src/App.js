@@ -56,7 +56,12 @@ const ExpertDigestForm = () => {
       <Title level={2}>Экспертный дайджест</Title>
 
       <Form layout="vertical">
-        <Form.Item label="Номер дайджеста:">
+        <Form.Item 
+          label="Номер дайджеста:"
+          required
+          validateStatus={digestNumber ? 'success' : 'error'}
+          help={!digestNumber && "Пожалуйста, введите номер дайджеста"}
+        >
           <Input 
             value={digestNumber} 
             onChange={(e) => setDigestNumber(e.target.value)} 
@@ -101,7 +106,7 @@ const ExpertDigestForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" onClick={generateMessage}>
+          <Button type="primary" onClick={generateMessage} disabled={!digestNumber}>
             Сгенерировать и скопировать сообщение
           </Button>
         </Form.Item>
