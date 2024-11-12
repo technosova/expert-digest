@@ -1,0 +1,69 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.full-screen-calendar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Используем 100% высоты экрана */
+    width: 100%;
+}
+
+.full-screen-calendar .ant-picker-calendar {
+    flex-grow: 1;
+    height: 100%; /* Устанавливаем высоту на 100% */
+    width: 100%;
+}
+
+.full-screen-calendar .ant-picker-calendar-date {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.calendar-cell-content {
+    position: relative; /* Позволяет фиксировать кнопку внутри ячейки */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .copy-button-container {
+    position: absolute;
+    top: 10px; /* Отступ сверху для фиксации в одном месте */
+    right: 10px; /* Отступ справа для фиксации в правом верхнем углу */
+    z-index: 10; /* Повышенный z-index, чтобы кнопка была поверх текста */
+  }
+  
+  .events {
+    list-style: none;
+    padding-right: 40px; /* Добавляем отступ справа, чтобы текст не накладывался на кнопку */
+    padding-left: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto; /* Прокрутка, если слишком много событий */
+  }
+
+/* Скрываем субботу и воскресенье, если переключатель отключен */
+/* Для заголовков (дни недели) */
+.hide-weekends .ant-picker-content th:nth-child(6),
+.hide-weekends .ant-picker-content th:nth-child(7) {
+    display: none;
+}
+
+/* Для самих ячеек дней недели */
+.hide-weekends .ant-picker-cell:nth-child(6),
+.hide-weekends .ant-picker-cell:nth-child(7) {
+    display: none;
+}
+
+ .ant-picker-cell-in-view{
+    height: 250px!important;
+}
+
+:where(.css-dev-only-do-not-override-1c0na6j).ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date-content{
+    height: 200px;
+}

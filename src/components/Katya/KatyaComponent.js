@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Row, Col, Input } from 'antd';
-import LostClientCard from './LostClientCard'; // Импортируем компонент для карточки Потеряшка
-import UnapprovedServiceCard from './UnapprovedServiceCard'; // Импортируем компонент для Несогласованные услуги
-import Notes from './Notes'; // Импортируем компонент для заметок
+import LostClientCard from './Cards/LostClientCard'; // Импортируем компонент для карточки Потеряшка
+import UnapprovedServiceCard from './Cards/UnapprovedServiceCard'; // Импортируем компонент для Несогласованные услуги
+import Notes from './Cards/Notes'; // Импортируем компонент для заметок
 
 const { Search } = Input;
 
